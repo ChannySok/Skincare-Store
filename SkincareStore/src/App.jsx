@@ -6,6 +6,7 @@ import Product from './pages/Product'
 import Contact from './pages/Contact'
 import AboutUs from './pages/AboutUs';
 import Service from './pages/Service'
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -21,6 +22,11 @@ const App = () => {
         <Route path="/service" element={<Service/>} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+
+      <footer>
+        <Footer/>
+      </footer>
+
     </div>
   )
 }
