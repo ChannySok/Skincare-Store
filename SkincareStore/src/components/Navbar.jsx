@@ -26,7 +26,7 @@ const Navbar = () => {
         {/* Logo */}
         <section>
           <img 
-            src="user.jpg" 
+            src="logo.jpg" 
             alt="logo" 
             className="h-12 sm:h-14 lg:h-16" 
           />
@@ -54,7 +54,7 @@ const Navbar = () => {
           <img
             src="user.jpg"
             alt="profile"
-            className="h-12 sm:h-12 rounded-full overflow-hidden"
+            className="w-12 h-auto sm:h-12 rounded-full overflow-hidden"
           />
           
           {/* Theme Toggle */}

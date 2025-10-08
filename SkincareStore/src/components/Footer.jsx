@@ -3,114 +3,109 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-black text-gray-300 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer className="bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black text-gray-600 dark:text-gray-300 pt-12 md:pt-16 pb-6 md:pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
         {/* Brand */}
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-4">ElectroShop</h2>
-          <p className="text-sm leading-6">
-            Powering your lifestyle with the latest electronics and cutting-edge
-            gadgets.
+        <div className="sm:col-span-2 lg:col-span-1">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
+            Lunara Store
+          </h2>
+          <p className="text-sm leading-6 dark:text-gray-400">
+            Let your skin glow as gently as the moonlight — pure, calm, and timeless.
           </p>
         </div>
 
         {/* Categories */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Categories</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 md:mb-4">
+            Categories
+          </h3>
           <ul className="space-y-2 text-sm">
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Laptops
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Smartphones
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Audio
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Wearables
-              </a>
-            </li>
+            {["Laptops", "Smartphones", "Audio", "Wearables"].map((item) => (
+              <li key={item}>
+                <a
+                  href="#"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Customer Care */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 md:mb-4">
             Customer Care
           </h3>
           <ul className="space-y-2 text-sm">
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Help Center
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Returns
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Warranty
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-blue-400">
-                Track Order
-              </a>
-            </li>
+            {["Help Center", "Returns", "Warranty", "Track Order"].map((item) => (
+              <li key={item}>
+                <a
+                  href="#"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Newsletter */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-4">
+        <div className="sm:col-span-2 lg:col-span-1">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 md:mb-4">
             Stay Connected
           </h3>
-          <p className="text-sm mb-4">
+          <p className="text-sm mb-4 dark:text-gray-400">
             Subscribe to our newsletter and never miss a deal.
           </p>
           <form className="flex mb-4">
             <input
               type="email"
               placeholder="Your email"
-              className="w-full px-4 py-2 rounded-l-xl bg-gray-800 text-gray-200 focus:outline-none"
+              className="w-full px-4 py-2 rounded-l-xl bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 border border-gray-300 dark:border-gray-700"
             />
             <button
               type="submit"
-              className="bg-blue-600 px-5 py-2 rounded-r-xl text-white font-medium hover:bg-blue-700"
+              className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 px-4 md:px-5 py-2 rounded-r-xl text-white font-medium transition-colors duration-200"
             >
               Join
             </button>
           </form>
           <div className="flex space-x-4 mt-4">
-            <a href="#">
-              <FaFacebook className="w-5 h-5 hover:text-blue-500" />
+            <a
+              href="#"
+              className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500 transition-colors duration-200"
+            >
+              <FaFacebook className="w-5 h-5" />
             </a>
-            <a href="#">
-              <FaTwitter className="w-5 h-5 hover:text-blue-400" />
+            <a
+              href="#"
+              className="text-gray-500 hover:text-blue-400 dark:text-gray-400 dark:hover:text-blue-400 transition-colors duration-200"
+            >
+              <FaTwitter className="w-5 h-5" />
             </a>
-            <a href="#">
-              <FaInstagram className="w-5 h-5 hover:text-pink-500" />
+            <a
+              href="#"
+              className="text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-500 transition-colors duration-200"
+            >
+              <FaInstagram className="w-5 h-5" />
             </a>
-            <a href="#">
-              <FaYoutube className="w-5 h-5 hover:text-red-500" />
+            <a
+              href="#"
+              className="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-500 transition-colors duration-200"
+            >
+              <FaYoutube className="w-5 h-5" />
             </a>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800 mt-12 pt-6 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} ElectroShop. All rights reserved.
+      <div className="border-t border-gray-200 dark:border-gray-800 mt-8 md:mt-12 pt-6 text-center text-sm text-gray-500 dark:text-gray-400">
+        © {new Date().getFullYear()} Lunara Store. All rights reserved.
       </div>
     </footer>
   );
