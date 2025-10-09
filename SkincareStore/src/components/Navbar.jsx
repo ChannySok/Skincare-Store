@@ -1,27 +1,51 @@
 import ThemeContext from "@/context/ThemeContext";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IoSunny, IoMenu, IoClose } from "react-icons/io5";
-import { IoIosMoon } from "react-icons/io"
+import { IoSunny, IoMenu, IoClose, IoChevronDown } from "react-icons/io5";
+import { IoIosMoon } from "react-icons/io";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsProductDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const navLinks = [
     { to: "/home", label: "Home" },
     { to: "/aboutus", label: "About Us" },
-    { to: "/product", label: "Product" },
+    { 
+      label: "Product", 
+      dropdown: [
+        { to: "/product/skincare", label: "Body Care" },
+        { to: "/product/clothing", label: "Special Products" },
+        { to: "/product/accessories", label: "Treatment & Care" },
+        { to: "/product/footwear", label: "Skincare Routine" },
+      ]
+    },
     { to: "/service", label: "Service" },
     { to: "/contact", label: "Contact" },
   ];
 
   return (
-    <nav className="bg-pink-300 dark:bg-blue-700">
+    <nav className="bg-pink-300 dark:bg-blue-700 relative">
       <div className="max-w-7xl mx-auto flex justify-between items-center py-2 px-4 sm:px-6">
         {/* Logo */}
         <section>
@@ -33,21 +57,49 @@ const Navbar = () => {
         </section>
 
         {/* Desktop Navigation - hidden on mobile */}
-        <section className="hidden lg:block space-x-6 font-semibold text-xl">
+        <section className="hidden lg:flex space-x-6 font-semibold text-lg items-center">
           {navLinks.map((link) => (
-            <Link 
-              key={link.label} 
-              to={link.to}
-              className="hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-            >
-              {link.label}
-            </Link>
+            <div key={link.label} className="relative" ref={link.dropdown ? dropdownRef : null}>
+              {link.dropdown ? (
+                <>
+                  <button
+                    onClick={() => setIsProductDropdownOpen(!isProductDropdownOpen)}
+                    className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-300 transition-colors text-lg"
+                  >
+                    {link.label}
+                    {/* <IoChevronDown className={`transition-transform ${isProductDropdownOpen ? 'rotate-180' : ''}`} /> */}
+                  </button>
+                  
+                  {/* Dropdown Menu */}
+                  {isProductDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700">
+                      {link.dropdown.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.label}
+                          to={dropdownItem.to}
+                          className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-blue-600 transition-colors"
+                          onClick={() => setIsProductDropdownOpen(false)}
+                        >
+                          {dropdownItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link 
+                  to={link.to}
+                  className="hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              )}
+            </div>
           ))}
         </section>
 
         {/* User Info and Theme Toggle */}
         <section className="flex items-center gap-2 sm:gap-4 font-medium text-base sm:text-lg">
-          {/* Username - hidden on mobile, visible on tablet and desktop */}
           <h2 className="hidden sm:block">Sok Pisey</h2>
           
           {/* Profile Image */}
@@ -80,15 +132,48 @@ const Navbar = () => {
       <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-pink-300 dark:bg-blue-700`}>
         <div className="px-4 py-3 space-y-3 font-semibold">
           {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.to}
-              className="block py-2 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
+            <div key={link.label}>
+              {link.dropdown ? (
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setIsProductDropdownOpen(!isProductDropdownOpen)}
+                    className="flex items-center gap-2 w-full text-left py-2 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                  >
+                    {link.label}
+                    <IoChevronDown className={`transition-transform ${isProductDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {/* Mobile Dropdown Menu */}
+                  {isProductDropdownOpen && (
+                    <div className="ml-4 space-y-2 border-l-2 border-blue-400 dark:border-blue-600 pl-4">
+                      {link.dropdown.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.label}
+                          to={dropdownItem.to}
+                          className="block py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                          onClick={() => {
+                            setIsProductDropdownOpen(false);
+                            setIsMenuOpen(false);
+                          }}
+                        >
+                          {dropdownItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to={link.to}
+                  className="block py-2 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              )}
+            </div>
           ))}
+          
           {/* Show username in mobile menu */}
           <div className="pt-3 border-t border-blue-400 dark:border-blue-600 sm:hidden">
             <p className="text-gray-700 dark:text-gray-300">Sok Pisey</p>
