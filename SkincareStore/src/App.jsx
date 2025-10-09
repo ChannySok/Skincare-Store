@@ -7,6 +7,10 @@ import Contact from './pages/Contact'
 import AboutUs from './pages/AboutUs';
 import Service from './pages/Service'
 import Footer from './components/Footer';
+import BodyCare from './pages/BodyCare';
+import SpecialProducts from './pages/SpecialProducts';
+import SkincareRoutine from './pages/SkincareRoutine';
+import TreatmentAndCare from './pages/TreatmentAndCare';
 
 const App = () => {
   return (
@@ -15,12 +19,18 @@ const App = () => {
         <Navbar />
       </nav>
 
+
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/aboutus" element={<AboutUs/>} />
         <Route path="/product" element={<Product />} />
         <Route path="/service" element={<Service/>} />
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/product/bodycare" element={<BodyCare />} />
+        <Route path="/product/specialproducts" element={<SpecialProducts />} />
+        <Route path="/product/skincareroutine" element={<SkincareRoutine />} />
+        <Route path="/product/treatmentandcare" element={<TreatmentAndCare />} />
       </Routes>
 
       <footer>

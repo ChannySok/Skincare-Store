@@ -1,7 +1,7 @@
 import ThemeContext from "@/context/ThemeContext";
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IoSunny, IoMenu, IoClose, IoChevronDown } from "react-icons/io5";
+import { IoSunny, IoMenu, IoClose, IoChevronDown, IoCart } from "react-icons/io5";
 import { IoIosMoon } from "react-icons/io";
 
 const Navbar = () => {
@@ -34,10 +34,10 @@ const Navbar = () => {
     { 
       label: "Product", 
       dropdown: [
-        { to: "/product/skincare", label: "Body Care" },
-        { to: "/product/clothing", label: "Special Products" },
-        { to: "/product/accessories", label: "Treatment & Care" },
-        { to: "/product/footwear", label: "Skincare Routine" },
+        { to: "/product/bodycare", label: "Body Care" },
+        { to: "/product/specialproducts", label: "Special Products" },
+        { to: "/product/treatmentandcare", label: "Treatment & Care" },
+        { to: "/product/skincareroutine", label: "Skincare Routine" },
       ]
     },
     { to: "/service", label: "Service" },
@@ -64,7 +64,7 @@ const Navbar = () => {
                 <>
                   <button
                     onClick={() => setIsProductDropdownOpen(!isProductDropdownOpen)}
-                    className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-300 transition-colors text-lg"
+                    className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-black transition-colors text-lg"
                   >
                     {link.label}
                     {/* <IoChevronDown className={`transition-transform ${isProductDropdownOpen ? 'rotate-180' : ''}`} /> */}
@@ -77,7 +77,7 @@ const Navbar = () => {
                         <Link
                           key={dropdownItem.label}
                           to={dropdownItem.to}
-                          className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-blue-600 transition-colors"
+                          className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-400 hover:rounded-full dark:hover:bg-blue-600 transition ease-in-out duration-300"
                           onClick={() => setIsProductDropdownOpen(false)}
                         >
                           {dropdownItem.label}
@@ -98,23 +98,27 @@ const Navbar = () => {
           ))}
         </section>
 
-        {/* User Info and Theme Toggle */}
+        {/* User Info, Theme Toggle, and Cart */}
         <section className="flex items-center gap-2 sm:gap-4 font-medium text-base sm:text-lg">
-          <h2 className="hidden sm:block">Sok Pisey</h2>
-          
-          {/* Profile Image */}
-          <img
-            src="user.jpg"
-            alt="profile"
-            className="h-8 sm:h-6 lg:h-10 rounded-full overflow-hidden"
-          />
-          
           {/* Theme Toggle */}
           <button 
             onClick={toggleTheme} 
             className="cursor-pointer p-1 text-xl sm:text-2xl hover:scale-110 transition-transform"
+            aria-label="Toggle theme"
           >
             {theme === "dark" ? <IoSunny /> : <IoIosMoon />}
+          </button>
+
+          {/* Add to Cart Button */}
+          <button 
+            className="flex items-center gap-1 sm:gap-2 cursor-pointer p-2 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm hover:shadow-md relative"
+            aria-label="Shopping cart"
+          >
+            <IoCart className="text-lg sm:text-xl text-gray-700 dark:text-gray-300" />
+            {/* Optional: Cart item count badge */}
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
+              0
+            </span>
           </button>
 
           {/* Mobile Menu Button */}
@@ -125,6 +129,13 @@ const Navbar = () => {
           >
             {isMenuOpen ? <IoClose /> : <IoMenu />}
           </button>
+
+          {/* Profile Image */}
+          <img
+            src="user.jpg"
+            alt="profile"
+            className="h-8 sm:h-6 lg:h-10 rounded-full overflow-hidden"
+          />
         </section>
       </div>
 
@@ -140,7 +151,7 @@ const Navbar = () => {
                     className="flex items-center gap-2 w-full text-left py-2 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
                   >
                     {link.label}
-                    <IoChevronDown className={`transition-transform ${isProductDropdownOpen ? 'rotate-180' : ''}`} />
+                    {/* <IoChevronDown className={`transition-transform ${isProductDropdownOpen ? 'rotate-180' : ''}`} /> */}
                   </button>
                   
                   {/* Mobile Dropdown Menu */}
@@ -176,7 +187,7 @@ const Navbar = () => {
           
           {/* Show username in mobile menu */}
           <div className="pt-3 border-t border-blue-400 dark:border-blue-600 sm:hidden">
-            <p className="text-gray-700 dark:text-gray-300">Sok Pisey</p>
+            {/* <p className="text-gray-700 dark:text-gray-300">Sok Pisey</p> */}
           </div>
         </div>
       </div>
