@@ -21,14 +21,14 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-blue-200 dark:bg-blue-700">
+    <nav className="bg-pink-300 dark:bg-blue-700">
       <div className="max-w-7xl mx-auto flex justify-between items-center py-2 px-4 sm:px-6">
         {/* Logo */}
         <section>
           <img 
-            src="logo.jpg" 
+            src="logocover.jpg" 
             alt="logo" 
-            className="h-12 sm:h-14 lg:h-16" 
+            className="h-12 sm:h-14 lg:h-18 p-2 bg-amber-50 rounded-full object-cover" 
           />
         </section>
 
@@ -48,13 +48,13 @@ const Navbar = () => {
         {/* User Info and Theme Toggle */}
         <section className="flex items-center gap-2 sm:gap-4 font-medium text-base sm:text-lg">
           {/* Username - hidden on mobile, visible on tablet and desktop */}
-          <h2 className="hidden sm:block">Tony Stark</h2>
+          <h2 className="hidden sm:block">Sok Pisey</h2>
           
           {/* Profile Image */}
           <img
             src="user.jpg"
             alt="profile"
-            className="w-12 h-auto sm:h-12 rounded-full overflow-hidden"
+            className="h-8 sm:h-6 lg:h-10 rounded-full overflow-hidden"
           />
           
           {/* Theme Toggle */}
@@ -77,7 +77,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu - appears when menu button is clicked */}
-      <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-blue-300 dark:bg-blue-800`}>
+      <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-pink-300 dark:bg-blue-700`}>
         <div className="px-4 py-3 space-y-3 font-semibold">
           {navLinks.map((link) => (
             <Link
@@ -91,7 +91,7 @@ const Navbar = () => {
           ))}
           {/* Show username in mobile menu */}
           <div className="pt-3 border-t border-blue-400 dark:border-blue-600 sm:hidden">
-            <p className="text-gray-700 dark:text-gray-300">Tony Stark</p>
+            <p className="text-gray-700 dark:text-gray-300">Sok Pisey</p>
           </div>
         </div>
       </div>

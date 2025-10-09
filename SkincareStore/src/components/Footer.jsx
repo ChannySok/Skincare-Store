@@ -21,7 +21,7 @@ const Footer = () => {
             Categories
           </h3>
           <ul className="space-y-2 text-sm">
-            {["Laptops", "Smartphones", "Audio", "Wearables"].map((item) => (
+            {["Serum", "Face Mask", "Sun and Night cream", "Clay Mask", "Body Scrub"].map((item) => (
               <li key={item}>
                 <a
                   href="#"
@@ -105,7 +105,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-200 dark:border-gray-800 mt-8 md:mt-12 pt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-        © {new Date().getFullYear()} Lunara Store. All rights reserved.
+        © {new Date().getFullYear()} Lunara Cosmestic Store. All rights reserved.
       </div>
     </footer>
   );
