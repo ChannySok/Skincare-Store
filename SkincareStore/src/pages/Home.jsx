@@ -61,6 +61,7 @@ const Home = () => {
                 src={product.image}
                 alt={product.name}
                 className="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                style={{ maxHeight: '400px' }} // Added max height for mobile
               />
 
               {/* Overlay on Hover */}
@@ -103,7 +104,7 @@ const Home = () => {
                 {product.description}
               </p>
               <button className="w-full bg-rose-500 text-white py-2 rounded-lg font-medium transition-all duration-300 hover:bg-rose-600">
-                Shop Now
+                Add To Cart
               </button>
             </div>
           </div>

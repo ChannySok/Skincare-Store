@@ -1,0 +1,88 @@
+{
+  "skincareroutine": [
+    {
+      "id": 1,
+      "name": "CeraVe Hydrating Facial Cleanser",
+      "description": "Gentle, non-foaming cleanser with ceramides and hyaluronic acid to hydrate while cleansing.",
+      "price": 14.99,
+      "image": "/images/skincare/cerave-hydrating-cleanser.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Thayers Alcohol-Free Witch Hazel Toner",
+      "description": "Soothing toner with aloe vera and witch hazel to balance pH and remove residue.",
+      "price": 10.99,
+      "image": "/images/skincare/thayers-witch-hazel-toner.jpg"
+    },
+    {
+      "id": 3,
+      "name": "The Ordinary Niacinamide 10% + Zinc 1%",
+      "description": "Reduces blemishes and strengthens skin barrier with niacinamide and zinc.",
+      "price": 6.5,
+      "image": "/images/skincare/ordinary-niacinamide-serum.jpg"
+    },
+    {
+      "id": 4,
+      "name": "CeraVe Eye Repair Cream",
+      "description": "Hydrates under-eye area with ceramides and hyaluronic acid.",
+      "price": 13.99,
+      "image": "/images/skincare/cerave-eye-repair-cream.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Neutrogena Hydro Boost Water Gel",
+      "description": "Lightweight gel moisturizer with hyaluronic acid for all-day hydration.",
+      "price": 18.49,
+      "image": "/images/skincare/neutrogena-hydro-boost.jpg"
+    },
+    {
+      "id": 6,
+      "name": "La Roche-Posay Anthelios Sunscreen SPF 60",
+      "description": "Broad-spectrum protection that's water-resistant and non-greasy.",
+      "price": 29.99,
+      "image": "/images/skincare/larocheposay-sunscreen.jpg"
+    },
+    {
+      "id": 7,
+      "name": "DHC Deep Cleansing Oil",
+      "description": "Oil-based cleanser to remove makeup and sunscreen without stripping skin.",
+      "price": 28.0,
+      "image": "/images/skincare/dhc-cleansing-oil.jpg"
+    },
+    {
+      "id": 8,
+      "name": "CeraVe Foaming Facial Cleanser",
+      "description": "Gentle foaming cleanser for normal to oily skin to remove impurities.",
+      "price": 14.99,
+      "image": "/images/skincare/cerave-foaming-cleanser.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Paula's Choice 2% BHA Liquid Exfoliant",
+      "description": "Chemical exfoliant with salicylic acid to unclog pores and smooth texture.",
+      "price": 34.0,
+      "image": "/images/skincare/paulas-choice-bha.jpg"
+    },
+    {
+      "id": 10,
+      "name": "The Ordinary Retinol 0.5% in Squalane",
+      "description": "Anti-aging retinol to reduce fine lines and improve skin renewal.",
+      "price": 7.8,
+      "image": "/images/skincare/ordinary-retinol-serum.jpg"
+    },
+    {
+      "id": 11,
+      "name": "RoC Retinol Correxion Eye Cream",
+      "description": "Retinol-infused eye cream to target wrinkles and dark circles.",
+      "price": 23.99,
+      "image": "/images/skincare/roc-retinol-eye-cream.jpg"
+    },
+    {
+      "id": 12,
+      "name": "CeraVe PM Facial Moisturizing Lotion",
+      "description": "Nighttime lotion with niacinamide and hyaluronic acid for repair.",
+      "price": 16.99,
+      "image": "/images/skincare/cerave-pm-lotion.jpg"
+    }
+  ]
+}

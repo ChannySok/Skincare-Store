@@ -1,0 +1,88 @@
+{
+  "bodycare": [
+    {
+      "id": 1,
+      "name": "Coconut Body Lotion",
+      "description": "Deeply moisturizes and softens dry skin with natural coconut oil and vitamin E.",
+      "price": 12.99,
+      "image": "/images/bodycare/coconut-body-lotion.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Lavender Body Scrub",
+      "description": "Gently exfoliates dead skin cells for smoother, refreshed skin.",
+      "price": 15.5,
+      "image": "/images/bodycare/lavender-body-scrub.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Aloe Vera Body Gel",
+      "description": "Hydrates and soothes sun-exposed or irritated skin with pure aloe extract.",
+      "price": 10.99,
+      "image": "/images/bodycare/aloe-vera-body-gel.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Rose Body Mist",
+      "description": "Light floral mist that refreshes your body and leaves a pleasant rose scent.",
+      "price": 9.5,
+      "image": "/images/bodycare/rose-body-mist.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Shea Butter Hand Cream",
+      "description": "Nourishes and repairs dry, rough hands with rich shea butter.",
+      "price": 8.99,
+      "image": "/images/bodycare/shea-butter-hand-cream.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Vanilla Body Wash",
+      "description": "Cleanses gently while leaving a soft vanilla scent that lasts all day.",
+      "price": 11.25,
+      "image": "/images/bodycare/vanilla-body-wash.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Green Tea Body Butter",
+      "description": "Deeply hydrates and protects skin with antioxidants from green tea.",
+      "price": 14.99,
+      "image": "/images/bodycare/green-tea-body-butter.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Lemon Sugar Body Scrub",
+      "description": "Brightens and polishes dull skin with a refreshing lemon scent.",
+      "price": 13.75,
+      "image": "/images/bodycare/lemon-sugar-body-scrub.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Honey Milk Body Cream",
+      "description": "Ultra-rich cream that restores moisture and smoothness to the skin.",
+      "price": 16.49,
+      "image": "/images/bodycare/honey-milk-body-cream.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Chamomile Relaxing Body Oil",
+      "description": "Calms the senses and softens skin with soothing chamomile extract.",
+      "price": 18.99,
+      "image": "/images/bodycare/chamomile-body-oil.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Peach Glow Body Lotion",
+      "description": "Lightweight lotion that gives your skin a natural, healthy glow.",
+      "price": 12.75,
+      "image": "/images/bodycare/peach-glow-body-lotion.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Mint Cooling Body Wash",
+      "description": "Energizing body wash that cools and refreshes skin after a long day.",
+      "price": 10.5,
+      "image": "/images/bodycare/mint-cooling-body-wash.jpg"
+    }
+  ]
+}
