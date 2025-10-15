@@ -103,13 +103,6 @@ const Home = () => {
 
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 ease-in-out flex items-end justify-center">
-                  {/* Optional: Add product name on hover */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 className="text-white font-semibold text-lg">{product.name}</h3>
-                    {product.price && (
-                      <p className="text-rose-200 font-medium">{product.price}</p>
-                    )}
-                  </div>
                 </div>
               </div>
             </div>

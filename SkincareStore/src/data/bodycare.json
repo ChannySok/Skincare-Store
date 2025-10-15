@@ -1,88 +1,204 @@
 {
-  "bodycare": [
+  "category": "Body Care",
+  "description": "Indulge in our luxurious body care collection designed to nourish, hydrate, and rejuvenate your skin from head to toe.",
+  "products": [
     {
       "id": 1,
-      "name": "Coconut Body Lotion",
-      "description": "Deeply moisturizes and softens dry skin with natural coconut oil and vitamin E.",
-      "price": 12.99,
-      "image": "/images/bodycare/coconut-body-lotion.jpg"
+      "name": "Hydrating Body Lotion",
+      "price": "$28.00",
+      "originalPrice": "$35.00",
+      "image": "https://images.unsplash.com/photo-1570194065650-2f016fdcfb7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Lotion",
+      "description": "Deeply moisturizing lotion with shea butter and coconut oil for 24-hour hydration.",
+      "ingredients": ["Shea Butter", "Coconut Oil", "Jojoba Oil", "Vitamin E"],
+      "benefits": [
+        "24-hour hydration",
+        "Improves skin elasticity",
+        "Soothes dry patches",
+        "Non-greasy formula"
+      ],
+      "skinType": ["Dry", "Normal", "Sensitive"],
+      "size": "400ml",
+      "rating": 4.7,
+      "reviews": 203
     },
     {
       "id": 2,
-      "name": "Lavender Body Scrub",
-      "description": "Gently exfoliates dead skin cells for smoother, refreshed skin.",
-      "price": 15.5,
-      "image": "/images/bodycare/lavender-body-scrub.jpg"
+      "name": "Exfoliating Body Scrub",
+      "price": "$32.00",
+      "originalPrice": "$40.00",
+      "image": "https://images.unsplash.com/photo-1556228579-4a6cda31543a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Scrub",
+      "description": "Gentle exfoliating scrub with sugar crystals and essential oils for smooth, glowing skin.",
+      "ingredients": ["Brown Sugar", "Coconut Oil", "Sweet Almond Oil", "Essential Oils"],
+      "benefits": [
+        "Removes dead skin cells",
+        "Improves skin texture",
+        "Stimulates circulation",
+        "Leaves skin silky smooth"
+      ],
+      "skinType": ["All Skin Types"],
+      "size": "300g",
+      "rating": 4.8,
+      "reviews": 156
     },
     {
       "id": 3,
-      "name": "Aloe Vera Body Gel",
-      "description": "Hydrates and soothes sun-exposed or irritated skin with pure aloe extract.",
-      "price": 10.99,
-      "image": "/images/bodycare/aloe-vera-body-gel.jpg"
+      "name": "Nourishing Body Oil",
+      "price": "$38.00",
+      "originalPrice": "$45.00",
+      "image": "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Oil",
+      "description": "Luxurious dry oil that absorbs quickly while providing intense nourishment.",
+      "ingredients": ["Argan Oil", "Jojoba Oil", "Rosehip Oil", "Vitamin E"],
+      "benefits": [
+        "Fast absorbing",
+        "Rich in antioxidants",
+        "Improves skin tone",
+        "Leaves radiant glow"
+      ],
+      "skinType": ["Dry", "Mature", "All Skin Types"],
+      "size": "200ml",
+      "rating": 4.9,
+      "reviews": 178
     },
     {
       "id": 4,
-      "name": "Rose Body Mist",
-      "description": "Light floral mist that refreshes your body and leaves a pleasant rose scent.",
-      "price": 9.5,
-      "image": "/images/bodycare/rose-body-mist.jpg"
+      "name": "Whipped Body Butter",
+      "price": "$35.00",
+      "originalPrice": "$42.00",
+      "image": "https://images.unsplash.com/photo-1590439471364-0b22a8019491?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Butter",
+      "description": "Ultra-rich whipped butter that melts into skin for deep conditioning.",
+      "ingredients": ["Shea Butter", "Cocoa Butter", "Mango Butter", "Vitamin E"],
+      "benefits": [
+        "Intense moisture",
+        "Repairs dry skin",
+        "Long-lasting protection",
+        "Luxurious texture"
+      ],
+      "skinType": ["Very Dry", "Sensitive", "Mature"],
+      "size": "250ml",
+      "rating": 4.6,
+      "reviews": 142
     },
     {
       "id": 5,
-      "name": "Shea Butter Hand Cream",
-      "description": "Nourishes and repairs dry, rough hands with rich shea butter.",
-      "price": 8.99,
-      "image": "/images/bodycare/shea-butter-hand-cream.jpg"
+      "name": "Refreshing Shower Gel",
+      "price": "$22.00",
+      "originalPrice": "$28.00",
+      "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Shower Gel",
+      "description": "Gentle cleansing gel with natural extracts that won't strip skin's moisture.",
+      "ingredients": ["Aloe Vera", "Chamomile", "Green Tea", "Natural Surfactants"],
+      "benefits": [
+        "Gentle cleansing",
+        "Maintains skin pH",
+        "Refreshing scent",
+        "No harsh chemicals"
+      ],
+      "skinType": ["All Skin Types", "Sensitive"],
+      "size": "500ml",
+      "rating": 4.5,
+      "reviews": 189
     },
     {
       "id": 6,
-      "name": "Vanilla Body Wash",
-      "description": "Cleanses gently while leaving a soft vanilla scent that lasts all day.",
-      "price": 11.25,
-      "image": "/images/bodycare/vanilla-body-wash.jpg"
+      "name": "Soothing Body Mist",
+      "price": "$25.00",
+      "originalPrice": "$30.00",
+      "image": "https://images.unsplash.com/photo-1556228453-2aeb66c9a529?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Body Mist",
+      "description": "Lightweight hydrating mist for instant refreshment throughout the day.",
+      "ingredients": ["Rose Water", "Hyaluronic Acid", "Lavender", "Glycerin"],
+      "benefits": [
+        "Instant hydration",
+        "Calming scent",
+        "Sets makeup",
+        "Portable care"
+      ],
+      "skinType": ["All Skin Types"],
+      "size": "150ml",
+      "rating": 4.4,
+      "reviews": 134
     },
     {
       "id": 7,
-      "name": "Green Tea Body Butter",
-      "description": "Deeply hydrates and protects skin with antioxidants from green tea.",
-      "price": 14.99,
-      "image": "/images/bodycare/green-tea-body-butter.jpg"
+      "name": "Firming Body Serum",
+      "price": "$45.00",
+      "originalPrice": "$55.00",
+      "image": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Serum",
+      "description": "Advanced firming serum with natural ingredients to improve skin elasticity.",
+      "ingredients": ["Caffeine", "Gotu Kola", "Hyaluronic Acid", "Peptides"],
+      "benefits": [
+        "Improves firmness",
+        "Reduces appearance of cellulite",
+        "Boosts circulation",
+        "Smooths skin texture"
+      ],
+      "skinType": ["All Skin Types", "Mature"],
+      "size": "150ml",
+      "rating": 4.7,
+      "reviews": 98
     },
     {
       "id": 8,
-      "name": "Lemon Sugar Body Scrub",
-      "description": "Brightens and polishes dull skin with a refreshing lemon scent.",
-      "price": 13.75,
-      "image": "/images/bodycare/lemon-sugar-body-scrub.jpg"
+      "name": "Overnight Repair Cream",
+      "price": "$42.00",
+      "originalPrice": "$50.00",
+      "image": "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
+      "category": "Overnight Care",
+      "description": "Intensive overnight treatment that works while you sleep to repair and renew.",
+      "ingredients": ["Ceramides", "Niacinamide", "Squalane", "Overnight Complex"],
+      "benefits": [
+        "Overnight repair",
+        "Strengthens skin barrier",
+        "Reduces dryness",
+        "Wake up to softer skin"
+      ],
+      "skinType": ["Dry", "Very Dry", "Mature"],
+      "size": "200ml",
+      "rating": 4.8,
+      "reviews": 167
+    }
+  ],
+  "categories": [
+    {
+      "name": "Body Lotions",
+      "description": "Daily hydration for soft, supple skin",
+      "icon": "💧",
+      "productCount": 2
     },
     {
-      "id": 9,
-      "name": "Honey Milk Body Cream",
-      "description": "Ultra-rich cream that restores moisture and smoothness to the skin.",
-      "price": 16.49,
-      "image": "/images/bodycare/honey-milk-body-cream.jpg"
+      "name": "Body Scrubs",
+      "description": "Exfoliate and reveal smoother skin",
+      "icon": "✨",
+      "productCount": 1
     },
     {
-      "id": 10,
-      "name": "Chamomile Relaxing Body Oil",
-      "description": "Calms the senses and softens skin with soothing chamomile extract.",
-      "price": 18.99,
-      "image": "/images/bodycare/chamomile-body-oil.jpg"
+      "name": "Body Oils",
+      "description": "Nourishing oils for radiant glow",
+      "icon": "🛢️",
+      "productCount": 1
     },
     {
-      "id": 11,
-      "name": "Peach Glow Body Lotion",
-      "description": "Lightweight lotion that gives your skin a natural, healthy glow.",
-      "price": 12.75,
-      "image": "/images/bodycare/peach-glow-body-lotion.jpg"
+      "name": "Body Butters",
+      "description": "Rich creams for intense moisture",
+      "icon": "🧈",
+      "productCount": 1
     },
     {
-      "id": 12,
-      "name": "Mint Cooling Body Wash",
-      "description": "Energizing body wash that cools and refreshes skin after a long day.",
-      "price": 10.5,
-      "image": "/images/bodycare/mint-cooling-body-wash.jpg"
+      "name": "Shower Gels",
+      "description": "Gentle cleansers for daily use",
+      "icon": "🚿",
+      "productCount": 1
+    },
+    {
+      "name": "Body Mists",
+      "description": "Quick refreshment on the go",
+      "icon": "🌫️",
+      "productCount": 1
     }
   ]
 }

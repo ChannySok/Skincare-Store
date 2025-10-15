@@ -36,6 +36,11 @@ const TreatmentAndCare = () => {
   });
   const [loading, setLoading] = useState(true);
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Simulate loading data
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -70,16 +75,40 @@ const TreatmentAndCare = () => {
   const openProductModal = (product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
+    // Scroll to top when opening modal
+    window.scrollTo(0, 0);
   };
 
   const closeProductModal = () => {
     setIsModalOpen(false);
     setSelectedProduct(null);
+    // Scroll to top when closing modal
+    window.scrollTo(0, 0);
   };
 
   const handleAddToCart = (product) => {
     // Add to cart functionality here
     alert(`Added ${product.name} to cart!`);
+    // Scroll to top after adding to cart
+    window.scrollTo(0, 0);
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    setFilters({...filters, [filterType]: value});
+    // Scroll to top when filter changes
+    window.scrollTo(0, 0);
+  };
+
+  const clearAllFilters = () => {
+    setFilters({ skinType: 'all', category: 'all', priceRange: 'all' });
+    // Scroll to top when clearing filters
+    window.scrollTo(0, 0);
+  };
+
+  const handleSkinConcernClick = (product) => {
+    openProductModal(product);
+    // Scroll to top when skin concern product is clicked
+    window.scrollTo(0, 0);
   };
 
   const renderStars = (rating) => {
@@ -111,7 +140,7 @@ const TreatmentAndCare = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Hero Section */}
       <section className="relative h-80 flex items-center justify-center bg-gradient-to-r from-rose-200/40 via-amber-200/40 to-rose-200/40 dark:from-gray-800/60 dark:via-gray-700/60 dark:to-gray-800/60 overflow-hidden">
         <div 
@@ -153,7 +182,7 @@ const TreatmentAndCare = () => {
               </label>
               <select
                 value={filters.skinType}
-                onChange={(e) => setFilters({...filters, skinType: e.target.value})}
+                onChange={(e) => handleFilterChange('skinType', e.target.value)}
                 className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:ring-2 focus:ring-rose-500 focus:border-transparent"
               >
                 {skinTypes.map(type => (
@@ -171,7 +200,7 @@ const TreatmentAndCare = () => {
               </label>
               <select
                 value={filters.category}
-                onChange={(e) => setFilters({...filters, category: e.target.value})}
+                onChange={(e) => handleFilterChange('category', e.target.value)}
                 className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:ring-2 focus:ring-rose-500 focus:border-transparent"
               >
                 {categories.map(category => (
@@ -189,7 +218,7 @@ const TreatmentAndCare = () => {
               </label>
               <select
                 value={filters.priceRange}
-                onChange={(e) => setFilters({...filters, priceRange: e.target.value})}
+                onChange={(e) => handleFilterChange('priceRange', e.target.value)}
                 className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:ring-2 focus:ring-rose-500 focus:border-transparent"
               >
                 <option value="all">All Prices</option>
@@ -209,7 +238,7 @@ const TreatmentAndCare = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"
           >
             {filteredProducts.map((product) => (
               <motion.div
@@ -313,7 +342,7 @@ const TreatmentAndCare = () => {
                 No products found matching your filters.
               </p>
               <button
-                onClick={() => setFilters({ skinType: 'all', category: 'all', priceRange: 'all' })}
+                onClick={clearAllFilters}
                 className="mt-4 text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300"
               >
                 Clear all filters
@@ -366,7 +395,7 @@ const TreatmentAndCare = () => {
                     return product ? (
                       <button
                         key={product.id}
-                        onClick={() => openProductModal(product)}
+                        onClick={() => handleSkinConcernClick(product)}
                         className="text-sm bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full hover:bg-rose-200 dark:hover:bg-rose-800/50 transition-colors duration-300"
                       >
                         {product.name}

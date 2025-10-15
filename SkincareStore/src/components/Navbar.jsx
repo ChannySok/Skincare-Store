@@ -19,7 +19,6 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -36,7 +35,6 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -50,10 +48,8 @@ const Navbar = () => {
     };
   }, []);
 
-  // Smooth scroll to section function
   const scrollToSection = (sectionId) => {
     if (sectionId === 'home') {
-      // Scroll to top of page
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -70,15 +66,12 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
-  // Handle navigation for sections that need scrolling
   const handleNavClick = (link) => {
     const sectionId = link.to.replace('/', '');
     
     if (location.pathname === '/home') {
-      // If we're already on the home page, scroll to section
       scrollToSection(sectionId);
     } else {
-      // Navigate to home page first, then scroll after a short delay
       navigate('/home');
       setTimeout(() => {
         scrollToSection(sectionId);
@@ -116,14 +109,13 @@ const Navbar = () => {
           <Link to="/home">
             <img
               id="home"
-              src="logocover.jpg"
+              src="/logocover.jpg"
               alt="logo"
               className="h-12 sm:h-14 lg:h-18 p-2 bg-amber-50 rounded-full object-cover cursor-default"
             />
           </Link>
         </section>
 
-        {/* Desktop Navigation - hidden on mobile */}
         <section className="hidden lg:flex space-x-6 font-semibold text-lg items-center min-w-max">
           {navLinks.map((link) => (
             <div
@@ -143,7 +135,6 @@ const Navbar = () => {
                     <IoChevronDown className="text-sm" />
                   </button>
 
-                  {/* Dropdown Menu */}
                   {isProductDropdownOpen && (
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700">
                       {link.dropdown.map((dropdownItem) => (
@@ -171,9 +162,7 @@ const Navbar = () => {
           ))}
         </section>
 
-        {/* User Info, Theme Toggle, and Cart */}
         <section className="flex items-center gap-2 sm:gap-4 font-medium text-base sm:text-lg">
-          {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             className="cursor-pointer p-1 text-xl sm:text-2xl hover:scale-110 transition-transform"
@@ -182,7 +171,6 @@ const Navbar = () => {
             {theme === "dark" ? <IoSunny /> : <IoIosMoon />}
           </button>
 
-          {/* Add to Cart Button */}
           <button
             className="flex items-center gap-1 sm:gap-2 cursor-pointer p-2 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm hover:shadow-md relative"
             aria-label="Shopping cart"
@@ -193,7 +181,6 @@ const Navbar = () => {
             </span>
           </button>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
             className="lg:hidden cursor-pointer p-1 text-2xl ml-2"
@@ -201,17 +188,15 @@ const Navbar = () => {
           >
             {isMenuOpen ? <IoClose /> : <IoMenu />}
           </button>
-
-          {/* Profile Image */}
+        {/* Profile */}
           <img
-            src="user.jpg"
+            src="/user.jpg"
             alt="profile"
             className="h-8 sm:h-6 lg:h-10 rounded-full overflow-hidden"
           />
         </section>
       </div>
 
-      {/* Mobile Menu - appears when menu button is clicked */}
       <div
         className={`lg:hidden ${
           isMenuOpen ? "block" : "hidden"
@@ -234,7 +219,6 @@ const Navbar = () => {
                     <IoChevronDown className="text-sm" />
                   </button>
 
-                  {/* Mobile Dropdown Menu */}
                   {isProductDropdownOpen && (
                     <div className="ml-4 space-y-2 border-l-2 border-blue-400 dark:border-blue-600 pl-4">
                       {link.dropdown.map((dropdownItem) => (
