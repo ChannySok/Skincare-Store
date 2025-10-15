@@ -9,6 +9,7 @@ import {
   IoCart,
 } from "react-icons/io5";
 import { IoIosMoon } from "react-icons/io";
+import { useCart } from "@/context/CartContext";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -18,6 +19,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { getCartItemsCount } = useCart(); // Add this line
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,17 +51,17 @@ const Navbar = () => {
   }, []);
 
   const scrollToSection = (sectionId) => {
-    if (sectionId === 'home') {
+    if (sectionId === "home") {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     } else {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
+          behavior: "smooth",
+          block: "start",
         });
       }
     }
@@ -67,12 +69,12 @@ const Navbar = () => {
   };
 
   const handleNavClick = (link) => {
-    const sectionId = link.to.replace('/', '');
-    
-    if (location.pathname === '/home') {
+    const sectionId = link.to.replace("/", "");
+
+    if (location.pathname === "/home") {
       scrollToSection(sectionId);
     } else {
-      navigate('/home');
+      navigate("/home");
       setTimeout(() => {
         scrollToSection(sectionId);
       }, 100);
@@ -96,10 +98,10 @@ const Navbar = () => {
   ];
 
   return (
-    <nav 
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-pink-300/95 dark:bg-gray-900 backdrop-blur-md shadow-lg" 
+        isScrolled
+          ? "bg-pink-300/95 dark:bg-gray-900 backdrop-blur-md shadow-lg"
           : "bg-pink-300 dark:bg-gray-900"
       }`}
     >
@@ -174,10 +176,11 @@ const Navbar = () => {
           <button
             className="flex items-center gap-1 sm:gap-2 cursor-pointer p-2 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm hover:shadow-md relative"
             aria-label="Shopping cart"
+            onClick={() => navigate("/cart")} // Navigate to cart page
           >
             <IoCart className="text-lg sm:text-xl text-gray-700 dark:text-gray-300" />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
-              0
+              {getCartItemsCount()} {/* Dynamic cart count */}
             </span>
           </button>
 
@@ -188,7 +191,7 @@ const Navbar = () => {
           >
             {isMenuOpen ? <IoClose /> : <IoMenu />}
           </button>
-        {/* Profile */}
+          {/* Profile */}
           <img
             src="/user.jpg"
             alt="profile"

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 //eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import specialProductsData from '../data/specialproduct.json';
+import { useCart } from '@/context/CartContext';
 
 // Animation variants
 const containerVariants = {
@@ -27,6 +28,7 @@ const itemVariants = {
 };
 
 const SpecialProducts = () => {
+  const { addToCart } = useCart(); // Add this line
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filters, setFilters] = useState({
@@ -121,10 +123,10 @@ const SpecialProducts = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleAddToCart = (product) => {
+   const handleAddToCart = (product) => {
+    addToCart(product);
+    // Optional: Show a success message or notification
     alert(`Added ${product.name} to cart!`);
-    // Scroll to top after adding to cart
-    window.scrollTo(0, 0);
   };
 
   const handleFilterChange = (filterType, value) => {
@@ -187,7 +189,7 @@ const SpecialProducts = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+            backgroundImage: 'url("/special.jpg")'
           }}
         />
         <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
@@ -477,7 +479,7 @@ const SpecialProducts = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"
           >
             {filteredProducts.map((product) => (
               <motion.div
@@ -615,7 +617,7 @@ const SpecialProducts = () => {
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.1 }}
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 bg-rose-500 text-white p-3 rounded-full shadow-lg hover:bg-rose-600 transition-colors duration-300 z-40"
+        className="fixed bottom-8 right-8 z-40 bg-gradient-to-r from-rose-500 to-amber-500 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:focus:ring-rose-800"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />

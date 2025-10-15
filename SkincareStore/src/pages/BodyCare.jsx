@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 //eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion';
-import bodyCareData from '../data/bodycare';
+import { motion, AnimatePresence } from "framer-motion";
+import bodyCareData from "../data/bodycare";
+import { useCart } from '@/context/CartContext';
 
 // Animation variants
 const containerVariants = {
@@ -9,9 +10,9 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
-    }
-  }
+      staggerChildren: 0.2,
+    },
+  },
 };
 
 const itemVariants = {
@@ -21,45 +22,78 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
 const BodyCare = () => {
+  const { addToCart } = useCart(); // Add this line
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filters, setFilters] = useState({
-    category: 'all',
-    skinType: 'all',
-    priceRange: 'all'
+    category: "all",
+    skinType: "all",
+    priceRange: "all",
   });
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Add scroll event listener to show/hide back to top button
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   // Get unique categories and skin types for filters
-  const categories = ['all', ...new Set(bodyCareData.products.map(p => p.category))];
-  const skinTypes = ['all', ...new Set(bodyCareData.products.flatMap(p => p.skinType))];
+  const categories = [
+    "all",
+    ...new Set(bodyCareData.products.map((p) => p.category)),
+  ];
+  const skinTypes = [
+    "all",
+    ...new Set(bodyCareData.products.flatMap((p) => p.skinType)),
+  ];
 
   // Filter products based on selected filters
-  const filteredProducts = bodyCareData.products.filter(product => {
-    const categoryMatch = filters.category === 'all' || product.category === filters.category;
-    const skinTypeMatch = filters.skinType === 'all' || product.skinType.includes(filters.skinType);
-    
+  const filteredProducts = bodyCareData.products.filter((product) => {
+    const categoryMatch =
+      filters.category === "all" || product.category === filters.category;
+    const skinTypeMatch =
+      filters.skinType === "all" || product.skinType.includes(filters.skinType);
+
     let priceMatch = true;
-    if (filters.priceRange !== 'all') {
-      const price = parseFloat(product.price.replace('$', ''));
+    if (filters.priceRange !== "all") {
+      const price = parseFloat(product.price.replace("$", ""));
       switch (filters.priceRange) {
-        case 'under-30': priceMatch = price < 30; break;
-        case '30-40': priceMatch = price >= 30 && price <= 40; break;
-        case 'over-40': priceMatch = price > 40; break;
-        default: priceMatch = true;
+        case "under-30":
+          priceMatch = price < 30;
+          break;
+        case "30-40":
+          priceMatch = price >= 30 && price <= 40;
+          break;
+        case "over-40":
+          priceMatch = price > 40;
+          break;
+        default:
+          priceMatch = true;
       }
     }
-    
+
     return categoryMatch && skinTypeMatch && priceMatch;
   });
 
@@ -77,27 +111,27 @@ const BodyCare = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleAddToCart = (product) => {
+   const handleAddToCart = (product) => {
+    addToCart(product);
+    // Optional: Show a success message or notification
     alert(`Added ${product.name} to cart!`);
-    // Scroll to top after adding to cart
-    window.scrollTo(0, 0);
   };
 
   const handleCategoryClick = (categoryName) => {
-    const categoryKey = categoryName.split(' ')[1].toLowerCase();
-    setFilters({...filters, category: categoryKey});
+    const categoryKey = categoryName.split(" ")[1].toLowerCase();
+    setFilters({ ...filters, category: categoryKey });
     // Scroll to top when category is clicked
     window.scrollTo(0, 0);
   };
 
   const handleFilterChange = (filterType, value) => {
-    setFilters({...filters, [filterType]: value});
+    setFilters({ ...filters, [filterType]: value });
     // Scroll to top when filter changes
     window.scrollTo(0, 0);
   };
 
   const clearAllFilters = () => {
-    setFilters({ category: 'all', skinType: 'all', priceRange: 'all' });
+    setFilters({ category: "all", skinType: "all", priceRange: "all" });
     // Scroll to top when clearing filters
     window.scrollTo(0, 0);
   };
@@ -107,11 +141,11 @@ const BodyCare = () => {
       <span
         key={index}
         className={`text-lg ${
-          index < Math.floor(rating) 
-            ? 'text-yellow-400' 
-            : index < rating 
-            ? 'text-yellow-300' 
-            : 'text-gray-300 dark:text-gray-600'
+          index < Math.floor(rating)
+            ? "text-yellow-400"
+            : index < rating
+            ? "text-yellow-300"
+            : "text-gray-300 dark:text-gray-600"
         }`}
       >
         ★
@@ -120,17 +154,18 @@ const BodyCare = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ">
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative">
       {/* Hero Section */}
       <section className="relative h-80 flex items-center justify-center bg-gradient-to-r from-rose-200/40 via-amber-200/40 to-rose-200/40 dark:from-gray-800/60 dark:via-gray-700/60 dark:to-gray-800/60 overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+            backgroundImage:
+              'url("https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
           }}
         />
         <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -209,12 +244,12 @@ const BodyCare = () => {
               </label>
               <select
                 value={filters.category}
-                onChange={(e) => handleFilterChange('category', e.target.value)}
+                onChange={(e) => handleFilterChange("category", e.target.value)}
                 className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:ring-2 focus:ring-rose-500 focus:border-transparent"
               >
-                {categories.map(category => (
+                {categories.map((category) => (
                   <option key={category} value={category}>
-                    {category === 'all' ? 'All Categories' : category}
+                    {category === "all" ? "All Categories" : category}
                   </option>
                 ))}
               </select>
@@ -227,12 +262,12 @@ const BodyCare = () => {
               </label>
               <select
                 value={filters.skinType}
-                onChange={(e) => handleFilterChange('skinType', e.target.value)}
+                onChange={(e) => handleFilterChange("skinType", e.target.value)}
                 className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:ring-2 focus:ring-rose-500 focus:border-transparent"
               >
-                {skinTypes.map(type => (
+                {skinTypes.map((type) => (
                   <option key={type} value={type}>
-                    {type === 'all' ? 'All Skin Types' : type}
+                    {type === "all" ? "All Skin Types" : type}
                   </option>
                 ))}
               </select>
@@ -245,7 +280,9 @@ const BodyCare = () => {
               </label>
               <select
                 value={filters.priceRange}
-                onChange={(e) => handleFilterChange('priceRange', e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("priceRange", e.target.value)
+                }
                 className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:ring-2 focus:ring-rose-500 focus:border-transparent"
               >
                 <option value="all">All Prices</option>
@@ -318,9 +355,7 @@ const BodyCare = () => {
 
                   {/* Rating */}
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="flex">
-                      {renderStars(product.rating)}
-                    </div>
+                    <div className="flex">{renderStars(product.rating)}</div>
                     <span className="text-sm text-gray-500 dark:text-gray-400">
                       ({product.reviews} reviews)
                     </span>
@@ -378,6 +413,34 @@ const BodyCare = () => {
           )}
         </div>
       </section>
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-40 bg-gradient-to-r from-rose-500 to-amber-500 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:focus:ring-rose-800"
+            aria-label="Back to top"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Product Detail Modal */}
       <AnimatePresence>
@@ -439,7 +502,8 @@ const BodyCare = () => {
                         {renderStars(selectedProduct.rating)}
                       </div>
                       <span className="text-gray-600 dark:text-gray-400">
-                        {selectedProduct.rating} • {selectedProduct.reviews} reviews
+                        {selectedProduct.rating} • {selectedProduct.reviews}{" "}
+                        reviews
                       </span>
                     </div>
 
@@ -459,14 +523,16 @@ const BodyCare = () => {
                         Key Ingredients
                       </h3>
                       <div className="flex flex-wrap gap-2">
-                        {selectedProduct.ingredients.map((ingredient, index) => (
-                          <span
-                            key={index}
-                            className="bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full text-sm"
-                          >
-                            {ingredient}
-                          </span>
-                        ))}
+                        {selectedProduct.ingredients.map(
+                          (ingredient, index) => (
+                            <span
+                              key={index}
+                              className="bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full text-sm"
+                            >
+                              {ingredient}
+                            </span>
+                          )
+                        )}
                       </div>
                     </div>
 

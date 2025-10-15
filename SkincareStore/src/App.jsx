@@ -59,6 +59,7 @@ import BodyCare from './pages/BodyCare';
 import SpecialProducts from './pages/SpecialProducts';
 import SkincareRoutine from './pages/SkincareRoutine';
 import TreatmentAndCare from './pages/TreatmentAndCare';
+import Cart from './pages/Cart';
 
 const App = () => {
   return (
@@ -73,6 +74,8 @@ const App = () => {
           <Route path="/product" element={<Product />} />
           <Route path="/service" element={<Service/>} />
           <Route path="/contact" element={<Contact />} />
+
+          <Route path="/cart" element={<Cart />} />
 
           <Route path="/product/bodycare" element={<BodyCare />} />
           <Route path="/product/specialproducts" element={<SpecialProducts />} />

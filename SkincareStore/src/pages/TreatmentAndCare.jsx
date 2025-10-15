@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 //eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import treatmentData from '../data/treatmentAndCare.json';
+import { useCart } from '@/context/CartContext';
 
 // Animation variants
 const containerVariants = {
@@ -27,6 +28,7 @@ const itemVariants = {
 };
 
 const TreatmentAndCare = () => {
+  const { addToCart } = useCart();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filters, setFilters] = useState({
@@ -35,11 +37,28 @@ const TreatmentAndCare = () => {
     priceRange: 'all'
   });
   const [loading, setLoading] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Add scroll event listener to show/hide back to top button
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   // Simulate loading data
   useEffect(() => {
@@ -86,11 +105,10 @@ const TreatmentAndCare = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleAddToCart = (product) => {
-    // Add to cart functionality here
+   const handleAddToCart = (product) => {
+    addToCart(product);
+    // Optional: Show a success message or notification
     alert(`Added ${product.name} to cart!`);
-    // Scroll to top after adding to cart
-    window.scrollTo(0, 0);
   };
 
   const handleFilterChange = (filterType, value) => {
@@ -140,13 +158,13 @@ const TreatmentAndCare = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative">
       {/* Hero Section */}
       <section className="relative h-80 flex items-center justify-center bg-gradient-to-r from-rose-200/40 via-amber-200/40 to-rose-200/40 dark:from-gray-800/60 dark:via-gray-700/60 dark:to-gray-800/60 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+            backgroundImage: 'url("/treatment.jpg")'
           }}
         />
         <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
@@ -408,6 +426,34 @@ const TreatmentAndCare = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-40 bg-gradient-to-r from-rose-500 to-amber-500 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:focus:ring-rose-800"
+            aria-label="Back to top"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Product Detail Modal */}
       <AnimatePresence>
