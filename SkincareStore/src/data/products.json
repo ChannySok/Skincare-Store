@@ -63,51 +63,7 @@
       "price": "$44.99",
       "featured": true
     },
-    {
-      "id": 7,
-      "name": "Lunar Essence Toner",
-      "description": "Refreshing toner that balances and prepares skin for optimal absorption",
-      "image": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=480&fit=crop",
-      "category": "Toner",
-      "price": "$32.99",
-      "featured": false
-    },
-    {
-      "id": 8,
-      "name": "Celestial Eye Serum",
-      "description": "Targeted treatment for delicate eye area with advanced peptide technology",
-      "image": "https://111skin.com/cdn/shop/files/BD_SERUM_MODEL.jpg?crop=center&height=1200&v=1698855838&width=1000",
-      "category": "Serum",
-      "price": "$52.99",
-      "featured": true
-    },
-    {
-      "id": 9,
-      "name": "Moonstone Facial Oil",
-      "description": "Nourishing oil blend with rosehip and jojoba for ultimate radiance",
-      "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&h=580&fit=crop",
-      "category": "Oil",
-      "price": "$47.99",
-      "featured": false
-    },
-    {
-      "id": 10,
-      "name": "Stardust Lip Treatment",
-      "description": "Hydrating lip care with subtle shimmer and vitamin E complex",
-      "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=470&fit=crop",
-      "category": "Lip Care",
-      "price": "$24.99",
-      "featured": false
-    },
-    {
-      "id": 11,
-      "name": "Lunar Aura Mist",
-      "description": "Facial mist with calming essential oils and hyaluronic acid",
-      "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=530&fit=crop",
-      "category": "Mist",
-      "price": "$28.99",
-      "featured": false
-    },
+
     {
       "id": 12,
       "name": "Celestial Body Lotion",

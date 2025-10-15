@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 //eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
@@ -109,17 +109,32 @@ const itemVariants = {
 const Service = () => {
   const navigate = useNavigate();
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleContactClick = () => {
     navigate('/contact');
+    // Scroll to top after navigation
+    window.scrollTo(0, 0);
   };
 
   const handleBookAppointment = () => {
     // You can add booking logic here or navigate to a booking page
     alert('Booking functionality coming soon!');
+    // Scroll to top after action
+    window.scrollTo(0, 0);
+  };
+
+  const handleLearnMore = () => {
+    // Scroll to top when learn more is clicked
+    window.scrollTo(0, 0);
+    // You can add additional logic here for learn more functionality
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div id="service" className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center bg-gradient-to-r from-rose-200/40 via-amber-200/40 to-rose-200/40 dark:from-gray-800/60 dark:via-gray-700/60 dark:to-gray-800/60 overflow-hidden">
         <div 
@@ -185,7 +200,10 @@ const Service = () => {
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                   {service.description}
                 </p>
-                <button className="text-rose-600 dark:text-rose-400 font-medium hover:text-rose-700 dark:hover:text-rose-300 transition-colors duration-300">
+                <button 
+                  onClick={handleLearnMore}
+                  className="text-rose-600 dark:text-rose-400 font-medium hover:text-rose-700 dark:hover:text-rose-300 transition-colors duration-300"
+                >
                   Learn More →
                 </button>
               </motion.div>

@@ -1,208 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
-
-// Product data from your JSON
-const productData = {
-  category: "Treatment & Care",
-  description: "Professional skincare treatments and specialized care solutions for various skin concerns. Our expert formulations target specific issues while nourishing and protecting your skin.",
-  products: [
-    {
-      id: 1,
-      name: "Acne Control Solution",
-      price: "$45.00",
-      originalPrice: "$55.00",
-      image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Acne Treatment",
-      description: "Powerful yet gentle formula to combat acne breakouts and prevent future ones.",
-      ingredients: ["Salicylic Acid", "Tea Tree Oil", "Niacinamide", "Zinc"],
-      benefits: [
-        "Reduces inflammation and redness",
-        "Unclogs pores",
-        "Controls excess oil",
-        "Prevents future breakouts"
-      ],
-      skinType: ["Oily", "Combination", "Acne-Prone"],
-      size: "30ml",
-      rating: 4.8,
-      reviews: 124
-    },
-    {
-      id: 2,
-      name: "Anti-Aging Serum",
-      price: "$68.00",
-      originalPrice: "$78.00",
-      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Anti-Aging",
-      description: "Advanced serum targeting fine lines, wrinkles, and loss of elasticity.",
-      ingredients: ["Retinol", "Vitamin C", "Hyaluronic Acid", "Peptides"],
-      benefits: [
-        "Reduces appearance of wrinkles",
-        "Boosts collagen production",
-        "Improves skin elasticity",
-        "Brightens complexion"
-      ],
-      skinType: ["All Skin Types"],
-      size: "30ml",
-      rating: 4.9,
-      reviews: 89
-    },
-    {
-      id: 3,
-      name: "Brightening Treatment",
-      price: "$52.00",
-      originalPrice: "$62.00",
-      image: "https://images.unsplash.com/photo-1556228579-4a6cda31543a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Brightening",
-      description: "Targets dark spots and uneven skin tone for a radiant, luminous complexion.",
-      ingredients: ["Vitamin C", "Niacinamide", "Tranexamic Acid", "Licorice Root"],
-      benefits: [
-        "Fades dark spots and hyperpigmentation",
-        "Evens skin tone",
-        "Provides antioxidant protection",
-        "Enhances natural radiance"
-      ],
-      skinType: ["All Skin Types"],
-      size: "30ml",
-      rating: 4.7,
-      reviews: 156
-    },
-    {
-      id: 4,
-      name: "Sensitive Skin Soother",
-      price: "$38.00",
-      originalPrice: "$48.00",
-      image: "https://images.unsplash.com/photo-1570194065650-2f016fdcfb7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Sensitive Skin",
-      description: "Gentle, calming treatment for reactive and sensitive skin types.",
-      ingredients: ["Centella Asiatica", "Oat Extract", "Ceramides", "Panthenol"],
-      benefits: [
-        "Reduces redness and irritation",
-        "Strengthens skin barrier",
-        "Provides instant relief",
-        "Calms inflammation"
-      ],
-      skinType: ["Sensitive", "Dry", "Reactive"],
-      size: "50ml",
-      rating: 4.6,
-      reviews: 203
-    },
-    {
-      id: 5,
-      name: "Hydration Boost Cream",
-      price: "$42.00",
-      originalPrice: "$52.00",
-      image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Hydration",
-      description: "Intense hydration treatment for severely dry and dehydrated skin.",
-      ingredients: ["Hyaluronic Acid", "Squalane", "Ceramides", "Shea Butter"],
-      benefits: [
-        "Provides 72-hour hydration",
-        "Restores skin barrier",
-        "Prevents moisture loss",
-        "Soothes dry patches"
-      ],
-      skinType: ["Dry", "Very Dry", "Dehydrated"],
-      size: "50ml",
-      rating: 4.8,
-      reviews: 178
-    },
-    {
-      id: 6,
-      name: "Pore Refining Treatment",
-      price: "$48.00",
-      originalPrice: "$58.00",
-      image: "https://images.unsplash.com/photo-1590439471364-0b22a8019491?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Pore Care",
-      description: "Minimizes appearance of pores and controls excess sebum production.",
-      ingredients: ["Niacinamide", "Salicylic Acid", "Clay Extract", "Willow Bark"],
-      benefits: [
-        "Minimizes pore appearance",
-        "Controls oil production",
-        "Smooths skin texture",
-        "Prevents blackheads"
-      ],
-      skinType: ["Oily", "Combination", "Large Pores"],
-      size: "30ml",
-      rating: 4.5,
-      reviews: 142
-    },
-    {
-      id: 7,
-      name: "Overnight Repair Mask",
-      price: "$55.00",
-      originalPrice: "$65.00",
-      image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Overnight Treatment",
-      description: "Intensive overnight treatment that works while you sleep to repair and rejuvenate.",
-      ingredients: ["Bakuchiol", "Peptides", "Ceramides", "Evening Primrose"],
-      benefits: [
-        "Repairs skin overnight",
-        "Boosts natural regeneration",
-        "Reduces fine lines",
-        "Improves skin texture"
-      ],
-      skinType: ["All Skin Types"],
-      size: "50ml",
-      rating: 4.9,
-      reviews: 167
-    },
-    {
-      id: 8,
-      name: "Rosacea Relief Serum",
-      price: "$58.00",
-      originalPrice: "$68.00",
-      image: "https://images.unsplash.com/photo-1556228453-2aeb66c9a529?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80",
-      category: "Specialized Care",
-      description: "Specialized treatment for rosacea-prone skin to reduce redness and sensitivity.",
-      ingredients: ["Azelaic Acid", "Centella Asiatica", "Green Tea", "Allantoin"],
-      benefits: [
-        "Reduces redness and flushing",
-        "Calms inflammation",
-        "Strengthens capillaries",
-        "Soothes irritation"
-      ],
-      skinType: ["Sensitive", "Rosacea-Prone"],
-      size: "30ml",
-      rating: 4.7,
-      reviews: 98
-    }
-  ],
-  skinConcerns: [
-    {
-      name: "Acne & Breakouts",
-      description: "Target stubborn acne and prevent future breakouts",
-      recommendedProducts: [1, 6]
-    },
-    {
-      name: "Aging & Wrinkles",
-      description: "Combat signs of aging and restore youthful appearance",
-      recommendedProducts: [2, 7]
-    },
-    {
-      name: "Hyperpigmentation",
-      description: "Even out skin tone and fade dark spots",
-      recommendedProducts: [3, 2]
-    },
-    {
-      name: "Dryness & Dehydration",
-      description: "Restore moisture and strengthen skin barrier",
-      recommendedProducts: [5, 4]
-    },
-    {
-      name: "Sensitivity & Redness",
-      description: "Calm and soothe reactive, sensitive skin",
-      recommendedProducts: [4, 8]
-    }
-  ],
-  usageTips: [
-    "Apply treatments to clean, dry skin",
-    "Start with once daily application and increase frequency as tolerated",
-    "Always follow with sunscreen during daytime use",
-    "Patch test new products before full application",
-    "Consistent use yields best results"
-  ]
-};
+import treatmentData from '../data/treatmentAndCare.json';
 
 // Animation variants
 const containerVariants = {
@@ -235,13 +34,22 @@ const TreatmentAndCare = () => {
     category: 'all',
     priceRange: 'all'
   });
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Get unique categories and skin types for filters
-  const categories = ['all', ...new Set(productData.products.map(p => p.category))];
-  const skinTypes = ['all', ...new Set(productData.products.flatMap(p => p.skinType))];
+  const categories = ['all', ...new Set(treatmentData.products.map(p => p.category))];
+  const skinTypes = ['all', ...new Set(treatmentData.products.flatMap(p => p.skinType))];
 
   // Filter products based on selected filters
-  const filteredProducts = productData.products.filter(product => {
+  const filteredProducts = treatmentData.products.filter(product => {
     const skinTypeMatch = filters.skinType === 'all' || product.skinType.includes(filters.skinType);
     const categoryMatch = filters.category === 'all' || product.category === filters.category;
     
@@ -291,6 +99,17 @@ const TreatmentAndCare = () => {
     ));
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-16 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-500 dark:border-rose-400 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">Loading treatments...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-16">
       {/* Hero Section */}
@@ -310,10 +129,10 @@ const TreatmentAndCare = () => {
           className="text-center relative z-10 px-4 max-w-4xl mx-auto"
         >
           <h1 className="text-5xl md:text-6xl font-serif font-light text-white mb-4 tracking-tight">
-            Treatment & Care
+            {treatmentData.category}
           </h1>
           <p className="text-xl md:text-2xl text-white/90 font-light max-w-2xl mx-auto">
-            Professional skincare solutions for your specific concerns
+            {treatmentData.description}
           </p>
         </motion.div>
       </section>
@@ -529,7 +348,7 @@ const TreatmentAndCare = () => {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {productData.skinConcerns.map((concern) => (
+            {treatmentData.skinConcerns.map((concern) => (
               <motion.div
                 key={concern.name}
                 variants={itemVariants}
@@ -543,7 +362,7 @@ const TreatmentAndCare = () => {
                 </p>
                 <div className="flex gap-2">
                   {concern.recommendedProducts.map(productId => {
-                    const product = productData.products.find(p => p.id === productId);
+                    const product = treatmentData.products.find(p => p.id === productId);
                     return product ? (
                       <button
                         key={product.id}

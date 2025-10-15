@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-
 
 // Team member data
 const teamMembers = [
@@ -34,7 +33,6 @@ const teamMembers = [
     description: 'Ensuring our products and packaging are eco-friendly'
   }
 ];
-
 
 // Brand values data
 const brandValues = [
@@ -92,8 +90,28 @@ const itemVariants = {
 };
 
 const AboutUs = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Optional: Add click handlers for any interactive elements
+  const handleTeamMemberClick = (memberName) => {
+    // Scroll to top when team member is clicked
+    window.scrollTo(0, 0);
+    // You can add additional logic here, like showing a modal with more info
+    console.log(`Clicked on ${memberName}`);
+  };
+
+  const handleValueClick = (valueTitle) => {
+    // Scroll to top when value is clicked
+    window.scrollTo(0, 0);
+    // You can add additional logic here
+    console.log(`Clicked on value: ${valueTitle}`);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div id="aboutus" className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center bg-gradient-to-r from-rose-200/30 via-amber-200/30 to-rose-200/30 dark:from-gray-800/50 dark:via-gray-700/50 dark:to-gray-800/50">
         <div 
@@ -193,7 +211,8 @@ const AboutUs = () => {
               <motion.div
                 key={value.id}
                 variants={itemVariants}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+                onClick={() => handleValueClick(value.title)}
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 cursor-pointer hover:scale-105"
               >
                 <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center text-2xl mb-4`}>
                   {value.icon}
@@ -239,7 +258,8 @@ const AboutUs = () => {
               <motion.div
                 key={member.id}
                 variants={itemVariants}
-                className="text-center group"
+                onClick={() => handleTeamMemberClick(member.name)}
+                className="text-center group cursor-pointer"
               >
                 <div className="relative mb-6 overflow-hidden rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300">
                   <img

@@ -1,7 +1,7 @@
 {
   "category": "Treatment & Care",
   "description": "Professional skincare treatments and specialized care solutions for various skin concerns. Our expert formulations target specific issues while nourishing and protecting your skin.",
-  "treatmentandcare": [
+  "products": [
     {
       "id": 1,
       "name": "Acne Control Solution",
