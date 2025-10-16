@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 //eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
 // Contact information data
 const contactInfo = [
@@ -15,15 +16,15 @@ const contactInfo = [
     id: 2,
     icon: '📞',
     title: 'Call Us',
-    details: ['+855 12 345 678', '+855 23 456 789'],
+    details: ['+855 11 222 333', '+855 44 555 666'],
     link: 'tel:+85512345678'
   },
   {
     id: 3,
     icon: '✉️',
     title: 'Email Us',
-    details: ['hello@lunara.com', 'support@lunara.com'],
-    link: 'mailto:hello@lunara.com'
+    details: ['lunarastore.beauty@lunara.com', 'supportlunarastore@lunara.com'],
+    link: 'mailto:lunarastore@lunara.com'
   },
   {
     id: 4,
@@ -64,11 +65,19 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [notification, setNotification] = useState({ show: false, message: '', type: '' });
+  const formRef = useRef();
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // EmailJS configuration - Replace these with your actual EmailJS credentials
+  const EMAILJS_SERVICE_ID = 'service_5ld9xf7'; // Replace with your EmailJS service ID
+  const EMAILJS_TEMPLATE_ID = 'template_sgepxp9'; // Replace with your EmailJS template ID
+  const EMAILJS_PUBLIC_KEY = 'iM1y9lgZNJqNCY7m8'; // Replace with your EmailJS public key
 
   const handleChange = (e) => {
     setFormData({
@@ -77,19 +86,69 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const showNotification = (message, type = 'success') => {
+    setNotification({ show: true, message, type });
+    setTimeout(() => {
+      setNotification({ show: false, message: '', type: '' });
+    }, 5000);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    
-    // Scroll to top after form submission
-    window.scrollTo(0, 0);
+    setIsLoading(true);
+
+    try {
+      // Validate form data
+      if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      // Send email using EmailJS
+      const result = await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      if (result.text === 'OK') {
+        showNotification('Thank you for your message! We will get back to you soon.', 'success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        
+        // Scroll to top after form submission
+        window.scrollTo(0, 0);
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      showNotification(
+        error.message || 'Sorry, there was an error sending your message. Please try again.',
+        'error'
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div id="contact" className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Notification */}
+      {notification.show && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg ${
+            notification.type === 'error' 
+              ? 'bg-red-500 text-white' 
+              : 'bg-green-500 text-white'
+          }`}
+        >
+          {notification.message}
+        </motion.div>
+      )}
+
       {/* Hero Section */}
       <section className="relative h-80 flex items-center justify-center bg-gradient-to-r from-rose-200/40 via-amber-200/40 to-rose-200/40 dark:from-gray-800/60 dark:via-gray-700/60 dark:to-gray-800/60 overflow-hidden">
         <div 
@@ -135,7 +194,7 @@ const Contact = () => {
                   Fill out the form below and we'll get back to you within 24 hours.
                 </p>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -203,11 +262,23 @@ const Contact = () => {
 
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-rose-500 to-amber-500 text-white py-4 px-8 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:from-rose-600 hover:to-amber-600"
+                    disabled={isLoading}
+                    whileHover={{ scale: isLoading ? 1 : 1.02 }}
+                    whileTap={{ scale: isLoading ? 1 : 0.98 }}
+                    className={`w-full bg-gradient-to-r from-rose-500 to-amber-500 text-white py-4 px-8 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 ${
+                      isLoading 
+                        ? 'opacity-70 cursor-not-allowed' 
+                        : 'hover:from-rose-600 hover:to-amber-600'
+                    }`}
                   >
-                    Send Message
+                    {isLoading ? (
+                      <div className="flex items-center justify-center">
+                        <div className="w-5 h-5 border-t-2 border-white rounded-full animate-spin mr-2"></div>
+                        Sending...
+                      </div>
+                    ) : (
+                      'Send Message'
+                    )}
                   </motion.button>
                 </form>
               </div>
@@ -314,7 +385,7 @@ const Contact = () => {
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-rose-500 to-amber-500 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              Call Now: +855 12 345 678
+              Call Now: +855 99 888 123
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}

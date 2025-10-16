@@ -1,9 +1,9 @@
 // context/CartContext.jsx
 import React, { createContext, useContext, useState } from 'react';
-import ThemeContext from './ThemeContext';
 
 const CartContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

@@ -6,28 +6,28 @@ import { motion } from 'framer-motion';
 const teamMembers = [
   {
     id: 1,
-    name: 'Sarah Chen',
+    name: 'Sok Pisey',
     role: 'Founder & CEO',
     image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80',
     description: 'Passionate about natural skincare for over 10 years'
   },
   {
     id: 2,
-    name: 'Marcus Rodriguez',
+    name: 'Kdey Piseth',
     role: 'Head Chemist',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80',
     description: 'Expert in organic formulations and sustainable practices'
   },
   {
     id: 3,
-    name: 'Emily Watson',
+    name: 'Long Saroth',
     role: 'Product Development',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80',
     description: 'Dedicated to creating effective, gentle skincare solutions'
   },
   {
     id: 4,
-    name: 'David Kim',
+    name: 'Jab Jean',
     role: 'Sustainability Lead',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80',
     description: 'Ensuring our products and packaging are eco-friendly'

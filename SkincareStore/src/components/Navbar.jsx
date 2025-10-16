@@ -1,13 +1,7 @@
 import ThemeContext from "@/context/ThemeContext";
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  IoSunny,
-  IoMenu,
-  IoClose,
-  IoChevronDown,
-  IoCart,
-} from "react-icons/io5";
+import { IoSunny, IoMenu, IoClose, IoChevronDown, IoCart, } from "react-icons/io5";
 import { IoIosMoon } from "react-icons/io";
 import { useCart } from "@/context/CartContext";
 
@@ -17,9 +11,10 @@ const Navbar = () => {
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef(null);
+  const mobileProductRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { getCartItemsCount } = useCart(); // Add this line
+  const { getCartItemsCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +34,11 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        (!mobileProductRef.current || !mobileProductRef.current.contains(event.target))
+      ) {
         setIsProductDropdownOpen(false);
       }
     };
@@ -81,6 +80,20 @@ const Navbar = () => {
     }
   };
 
+  // Add this function to handle cart icon click
+  const handleCartClick = () => {
+    // Scroll to top first
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    // Then navigate to cart page after a small delay to ensure scroll completes
+    setTimeout(() => {
+      navigate("/cart");
+    }, 300);
+  };
+
   const navLinks = [
     { to: "/home", label: "Home" },
     { to: "/aboutus", label: "About Us" },
@@ -117,7 +130,6 @@ const Navbar = () => {
             />
           </Link>
         </section>
-
         <section className="hidden lg:flex space-x-6 font-semibold text-lg items-center min-w-max">
           {navLinks.map((link) => (
             <div
@@ -163,7 +175,7 @@ const Navbar = () => {
             </div>
           ))}
         </section>
-
+        {/* In your Navbar component, update the profile image section */}
         <section className="flex items-center gap-2 sm:gap-4 font-medium text-base sm:text-lg">
           <button
             onClick={toggleTheme}
@@ -173,14 +185,15 @@ const Navbar = () => {
             {theme === "dark" ? <IoSunny /> : <IoIosMoon />}
           </button>
 
+          {/* Cart Button */}
           <button
             className="flex items-center gap-1 sm:gap-2 cursor-pointer p-2 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm hover:shadow-md relative"
             aria-label="Shopping cart"
-            onClick={() => navigate("/cart")} // Navigate to cart page
+            onClick={handleCartClick}
           >
             <IoCart className="text-lg sm:text-xl text-gray-700 dark:text-gray-300" />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
-              {getCartItemsCount()} {/* Dynamic cart count */}
+              {getCartItemsCount()}
             </span>
           </button>
 
@@ -191,12 +204,30 @@ const Navbar = () => {
           >
             {isMenuOpen ? <IoClose /> : <IoMenu />}
           </button>
-          {/* Profile */}
-          <img
-            src="/user.jpg"
-            alt="profile"
-            className="h-8 sm:h-6 lg:h-10 rounded-full overflow-hidden"
-          />
+
+          {/* Updated Profile Image - Now clickable */}
+          <button
+            onClick={() => {
+              // Scroll to top first
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+
+              // Then navigate to customer info page
+              setTimeout(() => {
+                navigate("/customer-info");
+              }, 300);
+            }}
+            className="cursor-pointer hover:scale-110 transition-transform duration-300"
+            aria-label="View customer profile"
+          >
+            <img
+              src="/user.jpg"
+              alt="profile"
+              className="h-8 sm:h-6 lg:h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-rose-400"
+            />
+          </button>
         </section>
       </div>
 
@@ -211,7 +242,7 @@ const Navbar = () => {
           {navLinks.map((link) => (
             <div key={link.label}>
               {link.dropdown ? (
-                <div className="space-y-2">
+                <div className="space-y-2" ref={mobileProductRef}>
                   <button
                     onClick={() =>
                       setIsProductDropdownOpen(!isProductDropdownOpen)
