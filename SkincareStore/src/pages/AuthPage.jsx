@@ -1,53 +1,111 @@
-// pages/AuthPage.jsx
 import React, { useState } from 'react';
-// eslint-disable-next-line
-import { motion, AnimatePresence } from 'framer-motion';
-import SignIn from '@/components/SignIn';
-import SignUp from '@/components/SignUp';
+import { useAuth } from '@/context/AuthContext';
 
 const AuthPage = () => {
-  const [isSignIn, setIsSignIn] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { signIn, signUp } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const result = isLogin 
+        ? await signIn(email, password)
+        : await signUp(email, password);
+
+      if (!result.success) {
+        setError(result.error || 'Authentication failed');
+      }
+      // eslint-disable-next-line
+    } catch (err) {
+      setError('An error occurred during authentication');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-400 via-amber-400 to-purple-500 dark:from-rose-600 dark:via-amber-600 dark:to-purple-700 flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl flex flex-col lg:flex-row items-center justify-center gap-8">
-        {/* Welcome Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center lg:text-left lg:w-1/2"
-        >
-          <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg rounded-3xl p-8 border border-white/30 dark:border-gray-700/50">
-            <h1 className="text-5xl lg:text-6xl font-serif font-light text-white mb-4">
-              Welcome to Lunara
-            </h1>
-            <p className="text-xl text-white/90 mb-6">
-              Discover the art of skincare with our premium products. 
-              Join our community and transform your skincare routine.
-            </p>
-            <div className="flex items-center justify-center lg:justify-start gap-4 text-white/80">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">✨</span>
-                <span>Premium Products</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🌟</span>
-                <span>Expert Care</span>
-              </div>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-amber-50 to-cream-100 flex items-center justify-center p-4">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          {isLogin ? 'Welcome Back' : 'Create Account'}
+        </h2>
+        
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            {error}
           </div>
-        </motion.div>
-
-        {/* Auth Forms */}
-        <div className="lg:w-1/2 flex justify-center">
-          <AnimatePresence mode="wait">
-            {isSignIn ? (
-              <SignIn key="signin" switchToSignUp={() => setIsSignIn(false)} />
+        )}
+        
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Email Address
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+              placeholder="Enter your password"
+              required
+              minLength="6"
+            />
+          </div>
+          
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-rose-500 text-white py-3 px-4 rounded-md hover:bg-rose-600 transition duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                {isLogin ? 'Signing in...' : 'Creating account...'}
+              </span>
             ) : (
-              <SignUp key="signup" switchToSignIn={() => setIsSignIn(true)} />
+              isLogin ? 'Sign In' : 'Sign Up'
             )}
-          </AnimatePresence>
+          </button>
+        </form>
+        
+        <p className="mt-6 text-center text-gray-600">
+          {isLogin ? "Don't have an account? " : "Already have an account? "}
+          <button
+            onClick={() => {
+              setIsLogin(!isLogin);
+              setError('');
+            }}
+            className="text-rose-500 hover:text-rose-600 font-medium transition duration-200"
+            disabled={loading}
+          >
+            {isLogin ? 'Sign up now' : 'Sign in instead'}
+          </button>
+        </p>
+        
+        <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded text-amber-700 text-sm">
+          <p className="font-medium">Demo Note:</p>
+          <p>For demonstration, you can use any email and password (minimum 6 characters).</p>
         </div>
       </div>
     </div>

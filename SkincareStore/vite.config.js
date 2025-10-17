@@ -11,6 +11,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      // eslint-disable-next-line
       "@": path.resolve(__dirname, "src"),
     },
   },

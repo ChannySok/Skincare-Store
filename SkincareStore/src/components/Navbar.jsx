@@ -1,9 +1,10 @@
 import ThemeContext from "@/context/ThemeContext";
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { IoSunny, IoMenu, IoClose, IoChevronDown, IoCart, } from "react-icons/io5";
+import { IoSunny, IoMenu, IoClose, IoChevronDown, IoCart } from "react-icons/io5";
 import { IoIosMoon } from "react-icons/io";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -15,6 +16,12 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { getCartItemsCount } = useCart();
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/auth");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +44,8 @@ const Navbar = () => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target) &&
-        (!mobileProductRef.current || !mobileProductRef.current.contains(event.target))
+        (!mobileProductRef.current ||
+          !mobileProductRef.current.contains(event.target))
       ) {
         setIsProductDropdownOpen(false);
       }
@@ -204,6 +212,15 @@ const Navbar = () => {
           >
             {isMenuOpen ? <IoClose /> : <IoMenu />}
           </button>
+
+          {user && (
+            <button
+              onClick={handleSignOut}
+              className="text-sm bg-rose-500 text-white px-3 py-1 rounded-lg hover:bg-rose-600 transition-colors duration-300"
+            >
+              Sign Out
+            </button>
+          )}
 
           {/* Updated Profile Image - Now clickable */}
           <button
